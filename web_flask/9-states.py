@@ -1,28 +1,35 @@
 #!/usr/bin/python3
 """
-starts a Flask web application
+file: 9-states.py
+Desc: This python module executes simple flask application.
+Author: Gizachew Bayness (Elec Crazy)
+Date Created: Nov 13, 2022
 """
-
-from flask import Flask, render_template
-from models import *
 from models import storage
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route('/states', strict_slashes=False)
-@app.route('/states/<state_id>', strict_slashes=False)
-def states(state_id=None):
-    """display the states and cities listed in alphabetical order"""
+@app.route("/states", strict_slashes=False)
+@app.route("/states/<id>", strict_slashes=False)
+def list_states(id=None):
+    """Renders an html page with some State data stored in db"""
     states = storage.all("State")
-    if state_id is not None:
-        state_id = 'State.' + state_id
-    return render_template('9-states.html', states=states, state_id=state_id)
+    if id is None:
+        return render_template("9-states.html", state=states)
+    else:
+        for state in states.values():
+            if state.id == id:
+                return render_template("9-states.html", state=state)
+        return render_template("9-states.html")
 
 
 @app.teardown_appcontext
-def teardown_db(exception):
-    """closes the storage on teardown"""
+def tear_down_db(execute):
+    """Removes the current SQLAlchemy session after each request
+    is completed"""
     storage.close()
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
