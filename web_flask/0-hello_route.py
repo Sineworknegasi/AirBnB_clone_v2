@@ -1,20 +1,14 @@
 #!/usr/bin/python3
-"""
-file: 0-hello_route.py
-desc: This module runs a simple flask app.
-Author: yoseph-desalegn
-Date Created: Nov 11, 2022
-"""
+""" A script that starts a flask web application """
 from flask import Flask
-
 app = Flask(__name__)
 
 
-@app.route("/", strict_slashes=False)
+@app.route('/', strict_slashes=False)
 def hello_hbnb():
-    """Displays 'Hello HBNB! from the root path"""
-    return "Hello HBNB!"
-
+    """ Prints a Message when / is called """
+    return 'Hello HBNB!'
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    """ Main Function """
+    app.run(host='0.0.0.0', port=5000)
