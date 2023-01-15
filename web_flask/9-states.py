@@ -2,8 +2,7 @@
 """
 file: 9-states.py
 Desc: This python module executes simple flask application.
-Author: Gizachew Bayness (Elec Crazy)
-Date Created: Nov 13, 2022
+Author: sinework negasi
 """
 from models import storage
 from flask import Flask, render_template
